@@ -14,8 +14,25 @@ permissions:
   contents: read
 
 jobs:
-  plan:
-    name: Terraform
+  iac-scan:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        files:
+          - main.tf
+          - outputs.tf
+          - variables.tf
+    steps:
+      - name: Run Snyk to check Kubernetes manifest file for issues
+        uses: snyk/actions/iac@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          file: ${{ matrix.files }}
+          args: --report
+
+  terraform-deploy:
+    needs: iac-scan
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -23,6 +40,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+      name: Checkout
 
     - name: Log in to Azure using OIDC
       uses: azure/login@v1
