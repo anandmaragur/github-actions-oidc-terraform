@@ -19,10 +19,13 @@ jobs:
     strategy:
       matrix:
         files:
-          - main.tf
-          - outputs.tf
-          - variables.tf
+          - ./infra/main.tf
+          - ./infra/outputs.tf
+          - ./infra/variables.tf
     steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+
       - name: Run Snyk to check Kubernetes manifest file for issues
         uses: snyk/actions/iac@master
         env:
