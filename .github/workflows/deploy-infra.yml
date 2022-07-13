@@ -20,7 +20,8 @@ jobs:
       matrix:
         files:
           - ./infra/main.tf
-          - ./infra/outputs.tf
+          - ./infra/output.tf
+          - ./infra/providers.tf
           - ./infra/variables.tf
     steps:
       - uses: actions/checkout@v2
