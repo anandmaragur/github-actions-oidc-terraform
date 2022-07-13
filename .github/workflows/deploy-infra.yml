@@ -1,6 +1,14 @@
 name: Terraform deploy
 
 on:
+  workflow_dispatch:
+    inputs:
+      destroy:
+        type: boolean
+        description: Destroy environment?
+        required: true
+        default: false
+
   push:
     branches: [ main ]
   pull_request:
