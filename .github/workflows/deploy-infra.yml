@@ -72,8 +72,8 @@ jobs:
         ARM_USE_OIDC: true
         ARM_SKIP_PROVIDER_REGISTRATION: true
 
-    - name: Terraform Apply
-      id: apply
+    - name: Terraform Destroy
+      id: destroy
       run: terraform destroy -auto-approve
       env:
         ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
