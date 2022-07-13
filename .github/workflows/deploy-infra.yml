@@ -1,14 +1,6 @@
 name: Terraform deploy
 
 on:
-  workflow_dispatch:
-    inputs:
-      destroy:
-        type: boolean
-        description: Destroy environment?
-        required: true
-        default: false
-
   push:
     branches: [ main ]
   pull_request:
@@ -23,7 +15,7 @@ permissions:
 
 jobs:
   plan:
-    name: Terraform plan
+    name: Terraform
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -72,7 +64,17 @@ jobs:
 
     - name: Terraform Apply
       id: apply
-      run: terraform apply "out.tfplan"
+      run: terraform apply -auto-approve "out.tfplan"
+      env:
+        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        ARM_USE_OIDC: true
+        ARM_SKIP_PROVIDER_REGISTRATION: true
+
+    - name: Terraform Apply
+      id: apply
+      run: terraform destroy -auto-approve
       env:
         ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
