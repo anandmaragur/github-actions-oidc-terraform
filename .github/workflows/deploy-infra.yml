@@ -55,16 +55,6 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-      
-    - name: Terraform workspace
-      id: workspace
-      run: terraform workspace new governance-test-workspace
-      continue-on-error: true
-
-    - name: Terraform fmt
-      id: fmt
-      run: terraform fmt -check
-      continue-on-error: true
 
     - name: Terraform Init
       id: init
@@ -74,6 +64,17 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         ARM_USE_OIDC: true
+        
+    - name: Terraform workspace
+      id: workspace
+      run: terraform workspace new governance-test-workspace
+
+
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -check
+      continue-on-error: true
+
 
     - name: Terraform Validate
       id: validate
