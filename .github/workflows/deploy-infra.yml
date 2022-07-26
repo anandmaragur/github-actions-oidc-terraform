@@ -55,6 +55,11 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+      
+    - name: Terraform workspace
+      id: workspace
+      run: terraform workspace new governance-test-workspace
+      continue-on-error: true
 
     - name: Terraform fmt
       id: fmt
