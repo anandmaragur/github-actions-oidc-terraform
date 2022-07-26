@@ -8,6 +8,11 @@ on:
 
 env:
   tf_actions_working_dir: infra
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  ARM_USE_OIDC: true
+  ARM_SKIP_PROVIDER_REGISTRATION: true
 
 permissions:
   id-token: write
@@ -59,20 +64,12 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        ARM_USE_OIDC: true
+
         
     - name: Terraform workspace
       id: workspace
       run: terraform workspace new governance-test-workspace
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        ARM_USE_OIDC: true
+
 
     - name: Terraform fmt
       id: fmt
@@ -87,29 +84,10 @@ jobs:
     - name: Terraform Plan
       id: plan
       run: terraform plan  --out=out.tfplan
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        ARM_USE_OIDC: true
-        ARM_SKIP_PROVIDER_REGISTRATION: true
+
 
     - name: Terraform Apply
       id: apply
       run: terraform apply -auto-approve "out.tfplan"
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        ARM_USE_OIDC: true
-        ARM_SKIP_PROVIDER_REGISTRATION: true
 
-    - name: Terraform Destroy
-      id: destroy
-      run: terraform destroy -auto-approve
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        ARM_USE_OIDC: true
-        ARM_SKIP_PROVIDER_REGISTRATION: true
+
