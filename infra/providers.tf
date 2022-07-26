@@ -12,7 +12,7 @@ terraform {
     resource_group_name  = "terraform-resource-group"
     storage_account_name = "tfstrgact2"
     container_name       = "caf-tf-state"
-    key                  = "caf-tf-state.tfstate"
+    key                  = "goverance/tfstate"
   }
 }
 
