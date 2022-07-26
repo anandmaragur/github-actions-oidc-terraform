@@ -68,8 +68,8 @@ jobs:
         
     - name: Terraform workspace
       id: workspace
-      run: terraform workspace new governance-test-workspace
-
+      run: terraform workspace select dev-workspace || terraform workspace new dev-workspace
+    
 
     - name: Terraform fmt
       id: fmt
