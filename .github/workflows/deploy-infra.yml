@@ -86,7 +86,7 @@ jobs:
       run: terraform plan  --out=out.tfplan
 
 
-    - name: Terraform Destroy
-      id: destroy
-      run: terraform destroy -auto-approve
+    - name: Terraform Apply
+      id: apply
+      run: terraform plan -auto-approve
 
