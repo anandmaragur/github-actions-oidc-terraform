@@ -1,28 +1,12 @@
 #!/bin/sh
 #registration_url="https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/actions/runners/registration-token"
-registration_url="https://api.github.com/orgs/${GITHUB_ORG}/actions/runners/registration-token"
-echo "Requesting registration URL at '${registration_url}'"
+#registration_url="https://api.github.com/orgs/${GITHUB_ORG}/actions/runners/registration-token"
+#echo "Requesting registration URL at '${registration_url}'"
 
-payload=$(curl -sX POST -H "Authorization: token ${GITHUB_PAT}" ${registration_url})
-export RUNNER_TOKEN=$(echo $payload | jq .token --raw-output)
+#payload=$(curl -sX POST -H "Authorization: token ${GITHUB_PAT}" ${registration_url})
+#export RUNNER_TOKEN=$(echo $payload | jq .token --raw-output)
 
-./config.sh \
-    --name $(hostname) \
-    --token ${RUNNER_TOKEN} \
-    --url https://github.com/${GITHUB_ORG} \
-    --work ${RUNNER_WORKDIR} \
-    --unattended \
-    --replace
+./config.sh --url https://github.com/ECSTC --token AJRM7T6HPA5T6PUTW422M73DC5BSW
 
 
-
-remove() {
-    ./config.sh remove --unattended --token "${RUNNER_TOKEN}"
-}
-
-trap 'remove; exit 130' INT
-trap 'remove; exit 143' TERM
-
-./run.sh "$*" &
-
-wait $!
+nohup ./run.sh &

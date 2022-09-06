@@ -22,9 +22,8 @@ RUN apt-get update \
 USER github
 WORKDIR /home/github
 
-RUN curl -Ls https://github.com/actions/runner/releases/download/v${GITHUB_RUNNER_VERSION}/actions-runner-linux-x64-${GITHUB_RUNNER_VERSION}.tar.gz | tar xz \
-    && sudo ./bin/installdependencies.sh
-
+RUN curl -o actions-runner-linux-x64-2.296.1.tar.gz -L https://github.com/actions/runner/releases/download/v2.296.1/actions-runner-linux-x64-2.296.1.tar.gz
+RUN tar xzf ./actions-runner-linux-x64-2.296.1.tar.gz
 COPY --chown=github:github entrypoint.sh ./entrypoint.sh
 RUN sudo chmod u+x ./entrypoint.sh
 
