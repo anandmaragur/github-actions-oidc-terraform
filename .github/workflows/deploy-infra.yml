@@ -41,7 +41,7 @@ jobs:
 #          args: --report
 
   terraform-deploy:
-    needs: iac-scan
+#    needs: iac-scan
     runs-on: ubuntu-latest
     defaults:
       run:
