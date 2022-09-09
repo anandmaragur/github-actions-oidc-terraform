@@ -7,5 +7,6 @@
 #export RUNNER_TOKEN=$(echo $payload | jq .token --raw-output)
 
 sudo ./bin/installdependencies.sh
-./config.sh --url https://github.com/maximus-sandbox --token AZ6JRI6Z5553HBB4HDQY26DDDLYLQ
-nohup ./run.sh &
+#./config.sh --url https://github.com/ECSTC --token AJRM7T66ACMHZCLZYIJT2B3DDL37I
+./config.sh --url https://github.com/ECSTC --token AJRM7T66ACMHZCLZYIJT2B3DDL37I --name `hostname` --runnergroup "Default" --labels "AKS-Pods" --work _work --replace true
+./run.sh &

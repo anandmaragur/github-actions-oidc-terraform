@@ -6,6 +6,7 @@ RUN apt-get update \
         sudo \
         git \
         jq \
+        apt-utils \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -m github \
