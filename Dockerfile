@@ -1,12 +1,5 @@
 FROM debian:buster-slim
 
-ARG GITHUB_RUNNER_VERSION="2.165.2"
-
-ENV RUNNER_NAME "runner"
-ENV GITHUB_PAT "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"
-ENV GITHUB_ORG "ECSTC"
-ENV RUNNER_WORKDIR "_work"
-
 RUN apt-get update \
     && apt-get install -y \
         curl \

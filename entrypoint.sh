@@ -6,7 +6,6 @@
 #payload=$(curl -sX POST -H "Authorization: token ${GITHUB_PAT}" ${registration_url})
 #export RUNNER_TOKEN=$(echo $payload | jq .token --raw-output)
 
-./config.sh --url https://github.com/ECSTC --token AJRM7T6HPA5T6PUTW422M73DC5BSW
-
-
+sudo ./bin/installdependencies.sh
+./config.sh --url https://github.com/maximus-sandbox --token AZ6JRI6Z5553HBB4HDQY26DDDLYLQ
 nohup ./run.sh &
